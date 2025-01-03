@@ -31,15 +31,15 @@ D=[0;0];                                                         %feedforward ma
 ss_model=ss(A,B,C,D);                                            %state-space model
 
 %----------------------LQR parameters-----------------
-Q=diag([0.1 800 700 400]);       % state matrix [theta alpha thetadot alphadot]
-R = 1;                           %control effort weights
-k=lqr(ss_model,Q,R);             %optimum pole placement gain;
+Q=diag([0.01 1600 1500 1200]);           % state matrix [theta alpha thetadot alphadot]
+R = 1;                                   %control effort weights
+k=lqr(ss_model,Q,R);                     %optimum pole placement gain;
 k_theta=k(1);
 k_alpha=k(2);
 k_thetadot=k(3);
 k_alphadot=k(4);
-syslqr=ss(A-B*k,B,C,0);
 
 %Step response
+syslqr=ss(A-B*k,B,C,0);
 TF = tf(syslqr)
 step(TF)
